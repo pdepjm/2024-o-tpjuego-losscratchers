@@ -1,16 +1,17 @@
 import wollok.game.*
 
-import pepita.*
+import alf.*
 
-program PepitaGame {
-	game.title("Pepita")
-	game.height(10)
-	game.width(10)
-	game.cellSize(100)
+program legendOfAlf {
+	game.title("The Legend of Alf")
+    game.height(8)
+    game.width(16)
+    game.cellSize(100)
+	game.boardGround("C1.jpg")
 
-	game.addVisual(pepita)
+    game.addVisualCharacter(alf)
 
-	keyboard.w().onPressDo({ pepita.fly(1) })
+	//keyboard.z().onPressDo({ alf.atacar() })
 
 	game.start()
 }
