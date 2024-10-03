@@ -11,7 +11,8 @@ program legendOfAlf {
 
     game.addVisualCharacter(alf)
 
-	//keyboard.z().onPressDo({ alf.atacar() })
+    // Revisar metodos de atacar y recibirDanio --> Como hacemos para saber que enemigo se esta atacando para pasarlo como parametro?
+	// keyboard.z().onPressDo({ alf.atacar(enemigo) })
 
 	game.start()
 }
