@@ -1,7 +1,7 @@
 object alf {
   var property vida = 100
-  const position = new MutablePosition(x=0, y=0)
-  var property image = "alf-pixelart.jpg"
+  var property position = game.origin()
+  var property image = "placeholder.png"
 
   var property armaActual = espada
   var property danio = armaActual.danio()
