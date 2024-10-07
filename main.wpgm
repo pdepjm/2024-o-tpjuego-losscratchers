@@ -1,8 +1,17 @@
 import wollok.game.*
 
 import alf.*
+import items.*
+import enemigo.*
 
-program legendOfAlf {
+object posicionAleatoria {
+  method calcular() = game.at(
+    0.randomUpTo(game.width()).truncate(0),
+    0.randomUpTo(game.width()).truncate(0)
+  )
+}
+
+program main {
 	game.title("The Legend of Alf")
     game.height(8)
     game.width(16)
@@ -10,9 +19,29 @@ program legendOfAlf {
 	game.boardGround("C1.jpg")
 
     game.addVisualCharacter(alf)
+    game.addVisual(espada)
+    game.addVisual(hamburgesa)
+    game.addVisual(llave)
+    game.addVisual(enemigoMelee)
+        
+    game.whenCollideDo(alf, { item => 
+        alf.agarrar(item)
+    })
+    
+    keyboard.enter().onPressDo({ game.say(alf, alf.vida().toString().concat(""))})
+
+    game.whenCollideDo(enemigoMelee, {alf => 
+        enemigoMelee.atacar(alf)
+    })
+
+    game.onTick(2000, "movimiento", {enemigoMelee.movete()})
 
     // Revisar metodos de atacar y recibirDanio --> Como hacemos para saber que enemigo se esta atacando para pasarlo como parametro?
-	// keyboard.z().onPressDo({ alf.atacar(enemigo) })
+	// keyboard.z().onPressDo({ alf.atacar(enemigo) })\
+    keyboard.a().onPressDo({ alf.utilizar(alf.inventario.first()) })
+    keyboard.s().onPressDo({ alf.utilizar(alf.inventario.second()) })
+    keyboard.d().onPressDo({ alf.utilizar(alf.inventario.third()) })
+    keyboard.i().onPressDo({ alf.mostrarInventarioTemp()})
 
 	game.start()
 }

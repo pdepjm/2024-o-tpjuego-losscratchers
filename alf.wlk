@@ -3,8 +3,9 @@ object alf {
   var property position = game.origin()
   var property image = "placeholder.png"
 
-  var property armaActual = espada
-  var property danio = armaActual.danio()
+  //var property armaActual = espada
+  //var property danio = armaActual.danio()
+  const inventario = []
   
   method position() = position
 
@@ -13,10 +14,31 @@ object alf {
 
   method recibirDanio(enemigo) {
     vida -= enemigo.danio()
+    self.morir()
   }
-}
 
-// Espada base --> podemos pensar en diferentes tipos de espadas u otras armas con diferentes daños
-object espada {
-  var property danio = 20
+  method morir() {
+    if(vida <= 0){
+      game.removeVisual(self)
+    }
+  }
+
+  method utilizar(item) {
+    
+  }
+  
+  method agarrar(item) {
+    if (inventario.size() < 3 && item.esAgarrable() )
+    {
+      game.removeVisual(item)
+      inventario.add(item)
+    }
+  }
+  
+  method mostrarInventarioTemp(){
+    game.say(self,inventario.size().toString())
+  }
+
+  
+
 }
