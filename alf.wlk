@@ -34,12 +34,12 @@ object alf {
       // Mover foto al inventario abajo a la derecha
       if (inventario.size() == 1) {
         //item.position().at(0,14)
-        item.irInventario(0, 14)
+        item.irInventario(13, 0)
       } else if (inventario.size() == 2) {
         //item.position().at(0,16)
-        item.irInventario(0, 15)
+        item.irInventario(14, 0)
       } else if (inventario.size() == 3) {
-        item.irInventario(0, 16)
+        item.irInventario(15, 0)
       }
     }
   }
