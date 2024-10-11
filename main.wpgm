@@ -11,30 +11,45 @@ object posicionAleatoria {
   )
 }
 
+object interactuador {
+    method obtenerPrimerElemento(key,accion){
+      		const colliders = game.colliders(alf)
+		if (colliders.isEmpty()) 
+			throw new DomainException(message = "Apreta "+ key + accion, source = alf)
+    return colliders.head()
+    }
+}
+
 program main {
 	game.title("The Legend of Alf")
     game.height(8)
     game.width(16)
     game.cellSize(100)
-	game.boardGround("C1.jpg")
+	//game.boardGround("C1.jpg")
+    game.ground("celda.png")
 
     game.addVisualCharacter(alf)
     game.addVisual(espada)
     game.addVisual(hamburgesa)
     game.addVisual(llave)
     game.addVisual(enemigoMelee)
-        
-    game.whenCollideDo(alf, { item => 
+
+    keyboard.x().onPressDo({
+        const item = interactuador.obtenerPrimerElemento("x"," sobre un elemento para recolectarlo")
         alf.agarrar(item)
     })
-    
+
     keyboard.enter().onPressDo({ game.say(alf, alf.vida().toString().concat(""))})
 
     game.whenCollideDo(enemigoMelee, {alf => 
         enemigoMelee.atacar(alf)
     })
 
-    game.onTick(2000, "movimiento", {enemigoMelee.movete()})
+    // ENEMIGO 1
+    var posicion=0
+    const recorrido_enemigo = [[3,3],[4,3],[5,3],[6,3],[7,3],[7,4],[7,5],[6,5],[5,5],[4,5],[3,5],[3,4]]
+    game.onTick(1100, "movimiento", { enemigoMelee.movete(recorrido_enemigo,posicion); posicion += 1; if(posicion>=12){posicion=0}})
+
 
     // Revisar metodos de atacar y recibirDanio --> Como hacemos para saber que enemigo se esta atacando para pasarlo como parametro?
 	// keyboard.z().onPressDo({ alf.atacar(enemigo) })\

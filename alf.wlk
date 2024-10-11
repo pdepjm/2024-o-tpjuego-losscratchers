@@ -30,15 +30,21 @@ object alf {
   method agarrar(item) {
     if (inventario.size() < 3 && item.esAgarrable() )
     {
-      game.removeVisual(item)
       inventario.add(item)
+      // Mover foto al inventario abajo a la derecha
+      if (inventario.size() == 1) {
+        //item.position().at(0,14)
+        item.irInventario(0, 14)
+      } else if (inventario.size() == 2) {
+        //item.position().at(0,16)
+        item.irInventario(0, 15)
+      } else if (inventario.size() == 3) {
+        item.irInventario(0, 16)
+      }
     }
   }
   
   method mostrarInventarioTemp(){
     game.say(self,inventario.size().toString())
   }
-
-  
-
 }

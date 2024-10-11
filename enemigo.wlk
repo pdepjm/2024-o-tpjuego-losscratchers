@@ -1,5 +1,39 @@
 import main.posicionAleatoria
 
+class EnemigoCoolDown {
+  const idTick
+  var puedeAtacar = false
+  
+  method configurarTick() {
+    game.onTick(2000, "Cooldown" + idTick, {self.habilitarAtaque()})
+  }
+
+  method habilitarAtaque() {
+    puedeAtacar = true
+  }
+
+  method atacar(unPersonaje) {
+    if(puedeAtacar) {
+       unPersonaje.recibirDanio()
+       puedeAtacar = false
+    }
+  }
+
+  // Demás implementaciones
+}
+
+class GeneradorDeEnemigosConCoolDown {
+  // Atributos locos 
+
+  method crearEnemigo() {
+    const enemigoNuevo = new EnemigoCoolDown(idTick = 1)
+    enemigoNuevo.configurarTick()
+    enemigoNuevo.agregarColisiones()
+    game.addVisual(enemigoNuevo)
+  }
+
+  // Demás implementaciones
+}
 object enemigoMelee {
   var property esAgarrable = false
   var property vida = 100
@@ -23,21 +57,44 @@ object enemigoMelee {
     game.onTick(2000,"",{self.nuevoAtaque(true)})
   }
 
-  method movete() {
-    if(0.randomUpTo(game.height()).truncate(0) % 2 == 0 )
-    {
-      if(self.position().x() < 16){
-        position = game.at((self.position().x() + 1),self.position().y())
-        }
-    } 
-    else 
-    {
-      if(self.position().y() < 8)
-      {
-          position = game.at(self.position().x(),(self.position().y()+1))
-      }
+  method movete(recorrido, pos_actual) 
+  { 
+    position = game.at(recorrido.get(pos_actual).get(0),recorrido.get(pos_actual).get(1))
+    
+    /*
+    if((1..4).anyOne().equals(1)){
+      position = self.position().right(1)
+    } else if((1..4).anyOne().equals(2)) {
+      position = self.position().up(1)
+    } else if((1..4).anyOne().equals(3)) {
+      position = self.position().left(1).
+    } else {
+      position = self.position().down(1)
     }
-    //position = posicionAleatoria.calcular()
+    
+    var x = self.position().x()
+    var y = self.position().y()
+    var limit_x = game.width()
+    var limit_y = game.height()
+
+    if(x >= limit_x)
+    {
+      position = self.position().at(limit_x - 1, y)
+    } 
+    else if(x < game.origin().x()) 
+    {
+      position = self.position().at(game.origin().x(), y)
+    }  
+    else if(y >= game.height())
+    {
+      position = self.position().at(x, limit_y - 1)
+    } 
+    else if(y < game.origin().y()) 
+    {
+      position = self.position().at(x, limit_y)
+    }*/
+
+
   }
 
   method recibirDanio(alf) {
