@@ -34,6 +34,7 @@ class GeneradorDeEnemigosConCoolDown {
 
   // Demás implementaciones
 }
+
 object enemigoMelee {
   var property esAgarrable = false
   var property vida = 100
@@ -99,6 +100,7 @@ object enemigoMelee {
 
   method recibirDanio(alf) {
     vida -= alf.danio()
+    self.morir()
   }
 
   method morir() {

@@ -50,13 +50,12 @@ program main {
     const recorrido_enemigo = [[3,3],[4,3],[5,3],[6,3],[7,3],[7,4],[7,5],[6,5],[5,5],[4,5],[3,5],[3,4]]
     game.onTick(1100, "movimiento", { enemigoMelee.movete(recorrido_enemigo,posicion); posicion += 1; if(posicion>=12){posicion=0}})
 
-
     // Revisar metodos de atacar y recibirDanio --> Como hacemos para saber que enemigo se esta atacando para pasarlo como parametro?
-	// keyboard.z().onPressDo({ alf.atacar(enemigo) })\
-    keyboard.a().onPressDo({ alf.utilizar(alf.inventario.first()) })
-    keyboard.s().onPressDo({ alf.utilizar(alf.inventario.second()) })
-    keyboard.d().onPressDo({ alf.utilizar(alf.inventario.third()) })
-    keyboard.i().onPressDo({ alf.mostrarInventarioTemp()})
+	keyboard.z().onPressDo({ alf.atacar(enemigoMelee) })
+    keyboard.a().onPressDo({ alf.utilizar(0) })
+    keyboard.s().onPressDo({ alf.utilizar(1) })
+    keyboard.d().onPressDo({ alf.utilizar(2) })
+    // keyboard.i().onPressDo({ alf.mostrarInventarioTemp()})
 
 	game.start()
 }

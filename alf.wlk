@@ -1,16 +1,40 @@
+import items.*
+
 object alf {
   var property vida = 100
   var property position = game.origin()
   var property image = "placeholder.png"
-
+  var property danio = 20
   //var property armaActual = espada
   //var property danio = armaActual.danio()
   const inventario = []
   
   method position() = position
 
+  method vida(curacion) {
+    vida += curacion
+  }
+  
+  method danio(danioExtra) {
+    danio += danioExtra
+  }
+
   // Revisar metodos de atacar y recibirDanio tanto en Alf como en los enemigos
-  method atacar(enemigo) = enemigo.recibirDanio(self) 
+  method atacar(enemigo) {
+    var e_x = enemigo.position().x()
+    var e_y = enemigo.position().y()
+    var a_x = position.x()
+    var a_y = position.y()
+    var dif_x = e_x - a_x
+    var dif_y = e_y - a_y
+    
+    if (  dif_x == 1 or dif_x == -1 
+          or dif_y == 1 or dif_y == -1)
+    {
+        enemigo.recibirDanio(self)
+        game.say(self,"Japish ")
+    }
+  }
 
   method recibirDanio(enemigo) {
     vida -= enemigo.danio()
@@ -23,28 +47,34 @@ object alf {
     }
   }
 
-  method utilizar(item) {
-    
+  // hamburgesa = +50 de vida
+  // llave = abre puerta/cofre
+  // espada = arma en mano
+
+  method utilizar(pos) { 
+    const item = inventario.get(pos)
+    item.accion()
+    inventario.remove(item)
+    game.removeVisual(item)
   }
   
   method agarrar(item) {
     if (inventario.size() < 3 && item.esAgarrable() )
     {
       inventario.add(item)
-      // Mover foto al inventario abajo a la derecha
-      if (inventario.size() == 1) {
-        //item.position().at(0,14)
-        item.irInventario(13, 0)
-      } else if (inventario.size() == 2) {
-        //item.position().at(0,16)
-        item.irInventario(14, 0)
-      } else if (inventario.size() == 3) {
-        item.irInventario(15, 0)
-      }
+      item.irInventario(12+inventario.size(), 0)
     }
   }
   
-  method mostrarInventarioTemp(){
+ /* method agarrar(item) {
+    if (inventario.size() < 3 && item.esAgarrable() )
+    {
+      inventario.add(item)
+      self.mostrarInventarioTemp(inventario.size())
+    }
+  }*/
+
+  method mostrarInventarioTemp(size) {
     game.say(self,inventario.size().toString())
   }
 }
