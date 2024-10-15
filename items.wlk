@@ -5,7 +5,7 @@ import alf.*
 object espada {
   var property esAgarrable = true
   var property danioExtra = 20
-  var property image = "espada.jpg"
+  var property image = "espada.png"
   var property position = posicionAleatoria.calcular()
   method irInventario(x, y) {position = game.at(x, y)}
   
@@ -16,7 +16,7 @@ object espada {
 
 object llave {
   var property esAgarrable = true
-  var property image = "llave.jpg"
+  var property image = "llave.png"
   var property position = posicionAleatoria.calcular()
   method irInventario(x, y) {position = game.at(x, y)}
   method accion() {
@@ -27,7 +27,7 @@ object llave {
 object hamburgesa {
   var property esAgarrable = true
   var property curacion = 50
-  var property image = "hamburguesa.jpg"
+  var property image = "hamburguesa.png"
   var property position = posicionAleatoria.calcular()
   method irInventario(x, y) {position = game.at(x, y)}
 

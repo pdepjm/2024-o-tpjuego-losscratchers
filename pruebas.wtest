@@ -16,4 +16,15 @@ describe " Test entrega 1 - danio/vida/items/inventario/enemigos "
         alf.atacar(enemigoMelee)
         assert.equals(60, enemigoMelee.vida())
     }
+    test "La hamburguesa cura a Alf" {
+        enemigoMelee.atacar(alf)
+        enemigoMelee.atacar(alf)
+        enemigoMelee.atacar(alf)
+        hamburgesa.accion()
+        assert.equals(90, alf.vida())
+    }
+    test "La hamburguesa cura mas del limite de vida a Alf" {
+        hamburgesa.accion()
+        assert.equals(100, alf.vida())
+    }
 }
