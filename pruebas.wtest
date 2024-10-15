@@ -1,1 +1,19 @@
+import enemigo.*
 import alf.*
+import items.*
+
+describe " Test entrega 1 - danio/vida/items/inventario/enemigos "
+{
+    test "El enemigo empieza con toda su vida" {
+        assert.equals(100, enemigoMelee.vida())
+    }
+    test "El enemigo recibe danio" {
+        alf.atacar(enemigoMelee)
+        assert.equals(80, enemigoMelee.vida())
+    }
+    test "El enemigo recibe mas danio cuando Alf tiene la espada" {
+        espada.accion()
+        alf.atacar(enemigoMelee)
+        assert.equals(60, enemigoMelee.vida())
+    }
+}

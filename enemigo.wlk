@@ -1,5 +1,5 @@
 import main.posicionAleatoria
-
+/*
 class EnemigoCoolDown {
   const idTick
   var puedeAtacar = false
@@ -21,7 +21,6 @@ class EnemigoCoolDown {
 
   // Demás implementaciones
 }
-
 class GeneradorDeEnemigosConCoolDown {
   // Atributos locos 
 
@@ -34,6 +33,7 @@ class GeneradorDeEnemigosConCoolDown {
 
   // Demás implementaciones
 }
+*/
 
 object enemigoMelee {
   const esAgarrable = false

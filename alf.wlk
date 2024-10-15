@@ -76,8 +76,5 @@ object alf {
       self.mostrarInventarioTemp(inventario.size())
     }
   }*/
-
-  method mostrarInventarioTemp(size) {
-    game.say(self,inventario.size().toString())
-  }
+  
 }

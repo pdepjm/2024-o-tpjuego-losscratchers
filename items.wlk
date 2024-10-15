@@ -4,7 +4,7 @@ import alf.*
 
 object espada {
   var property esAgarrable = true
-  var property danioExtra = 100
+  var property danioExtra = 20
   var property image = "espada.jpg"
   var property position = posicionAleatoria.calcular()
   method irInventario(x, y) {position = game.at(x, y)}
@@ -32,6 +32,6 @@ object hamburgesa {
   method irInventario(x, y) {position = game.at(x, y)}
 
   method accion() {
-    alf.curarse(curacion)
+    alf.vida(curacion)
   }
 }

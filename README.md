@@ -7,7 +7,8 @@ UTN - Facultad Regional Buenos Aires - Materia Paradigmas de Programación
 - Dante Ezequiel Samudio (SamDante)
 - Joaquin Mariosa Rendon (JoaquinMariosa)
 - Leandro Leones (LeandroLeones)
-
+- Pablo La Rocca (Pabloutndev) 
+- Gonza Galarza (GonzaGalarza)
 ## Capturas 
 
 ![pepita](assets/golondrina.png)
