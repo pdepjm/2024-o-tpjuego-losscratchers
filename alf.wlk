@@ -51,6 +51,9 @@ object alf {
     }
   }
 
+  // Para testear
+  method tamanioDelInventario() = inventario.size()
+
   // hamburgesa = +50 de vida
   // llave = abre puerta/cofre
   // espada = arma en mano

@@ -41,7 +41,7 @@ object enemigoMelee {
   var position = posicionAleatoria.calcular()
   var property danio = 20
   var property image = "placeholder_attack.png"
-  var property puedoAtacar = false
+  var property puedoAtacar = true
 
   method position() = position
 
