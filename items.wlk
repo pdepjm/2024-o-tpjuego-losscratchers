@@ -32,6 +32,6 @@ object hamburgesa {
   method irInventario(x, y) {position = game.at(x, y)}
 
   method accion() {
-    alf.vida(curacion)
+    alf.curarse(curacion)
   }
 }

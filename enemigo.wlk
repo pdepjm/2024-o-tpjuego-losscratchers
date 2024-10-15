@@ -36,18 +36,16 @@ class GeneradorDeEnemigosConCoolDown {
 }
 
 object enemigoMelee {
-  var property esAgarrable = false
+  const esAgarrable = false
   var property vida = 100
   var position = posicionAleatoria.calcular()
   var property danio = 20
   var property image = "placeholder_attack.png"
-  var puedoAtacar = true
+  var property puedoAtacar = false
 
   method position() = position
 
   method danio() = danio
-
-  method nuevoAtaque(value) = value 
 
   // Revisar metodos de atacar y recibirDanio tanto en Alf como en los enemigos
   method atacar(alf) {
@@ -55,7 +53,6 @@ object enemigoMelee {
       alf.recibirDanio(self) 
       puedoAtacar = false
     }
-    game.onTick(2000,"",{self.nuevoAtaque(true)})
   }
 
   method movete(recorrido, pos_actual) 

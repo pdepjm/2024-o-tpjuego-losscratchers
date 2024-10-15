@@ -1,5 +1,10 @@
 import items.*
 
+object inventarioHUD {
+  const property image = "inventario.png"
+  const property position = game.at(13,0)
+}
+
 object alf {
   var property vida = 100
   var property position = game.origin()
@@ -11,8 +16,8 @@ object alf {
   
   method position() = position
 
-  method vida(curacion) {
-    vida += curacion
+  method curarse(curacion) {
+    vida = (vida + curacion).min(100)
   }
   
   method danio(danioExtra) {
@@ -29,8 +34,7 @@ object alf {
     var dif_y = e_y - a_y
     
     if (  dif_x == 1 or dif_x == -1 
-          or dif_y == 1 or dif_y == -1)
-    {
+          or dif_y == 1 or dif_y == -1) {
         enemigo.recibirDanio(self)
         game.say(self,"Japish ")
     }
@@ -59,10 +63,9 @@ object alf {
   }
   
   method agarrar(item) {
-    if (inventario.size() < 3 && item.esAgarrable() )
-    {
+    if (inventario.size() < 3 && item.esAgarrable()) {
       inventario.add(item)
-      item.irInventario(12+inventario.size(), 0)
+      item.irInventario(12 + inventario.size(), 0)
     }
   }
   

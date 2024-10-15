@@ -29,13 +29,14 @@ program main {
     game.ground("celda.png")
 
     game.addVisualCharacter(alf)
+    game.addVisual(inventarioHUD)
     game.addVisual(espada)
     game.addVisual(hamburgesa)
     game.addVisual(llave)
     game.addVisual(enemigoMelee)
 
     keyboard.x().onPressDo({
-        const item = interactuador.obtenerPrimerElemento("x"," sobre un elemento para recolectarlo")
+        const item = interactuador.obtenerPrimerElemento("x"," sobre un item para agarrarlo")
         alf.agarrar(item)
     })
 
@@ -45,10 +46,12 @@ program main {
         enemigoMelee.atacar(alf)
     })
 
+    game.onTick(3000,"Cooldown",{enemigoMelee.puedoAtacar(true)})
+
     // ENEMIGO 1
     var posicion=0
     const recorrido_enemigo = [[3,3],[4,3],[5,3],[6,3],[7,3],[7,4],[7,5],[6,5],[5,5],[4,5],[3,5],[3,4]]
-    game.onTick(1100, "movimiento", { enemigoMelee.movete(recorrido_enemigo,posicion); posicion += 1; if(posicion>=12){posicion=0}})
+    game.onTick(1100, "movimiento", { enemigoMelee.movete(recorrido_enemigo,posicion); posicion += 1; if(posicion>=12){posicion=0} })
 
     // Revisar metodos de atacar y recibirDanio --> Como hacemos para saber que enemigo se esta atacando para pasarlo como parametro?
 	keyboard.z().onPressDo({ alf.atacar(enemigoMelee) })
