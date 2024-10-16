@@ -25,7 +25,8 @@ object alf {
   }
 
   // Revisar metodos de atacar y recibirDanio tanto en Alf como en los enemigos
-  method atacar(enemigo) {
+  method atacar(enemigo) 
+  {
     var e_x = enemigo.position().x()
     var e_y = enemigo.position().y()
     var a_x = position.x()
@@ -33,8 +34,11 @@ object alf {
     var dif_x = e_x - a_x
     var dif_y = e_y - a_y
     
-    if (  dif_x == 1 or dif_x == -1 
-          or dif_y == 1 or dif_y == -1) {
+    if(dif_x < 0) {dif_x *= -1}
+    if(dif_y < 0) {dif_y *= -1}
+
+    if (  dif_x+dif_y == 1 || (dif_x == 1 && dif_y == 1) ) 
+    { 
         enemigo.recibirDanio(self)
         game.say(self,"Japish ")
     }

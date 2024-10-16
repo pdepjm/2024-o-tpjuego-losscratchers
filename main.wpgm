@@ -46,7 +46,8 @@ program main {
         enemigoMelee.atacar(alf)
     })
 
-    game.onTick(3000,"Cooldown",{enemigoMelee.puedoAtacar(true)})
+    //game.onTick(3000,"Cooldown",{enemigoMelee.puedoAtacar(true)})
+    // REVISAR
 
     // ENEMIGO 1
     var posicion=0
