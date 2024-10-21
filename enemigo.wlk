@@ -52,6 +52,7 @@ object enemigoMelee {
     if (puedoAtacar) { 
       alf.recibirDanio(self) 
       puedoAtacar = false
+      game.schedule(3000, {self.puedoAtacar(true)})
     }
   }
 

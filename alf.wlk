@@ -36,8 +36,14 @@ object alf {
     
     if(dif_x < 0) {dif_x *= -1}
     if(dif_y < 0) {dif_y *= -1}
-
+  /*
     if (  dif_x+dif_y == 1 || (dif_x == 1 && dif_y == 1) ) 
+    { 
+        enemigo.recibirDanio(self)
+        game.say(self,"Japish ")
+    }
+  */    
+    if ( enemigo.position().distance(self.position()) == 1 ) 
     { 
         enemigo.recibirDanio(self)
         game.say(self,"Japish ")
