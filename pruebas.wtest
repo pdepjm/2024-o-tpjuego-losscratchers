@@ -34,7 +34,7 @@ describe " Test entrega 1 - danio/vida/items/inventario/enemigos "
         alf.agarrar(hamburgesa)
         alf.agarrar(espada)
         alf.utilizar(0)
-        assert.equals(1, alf.tamanioDelInventario())
+        assert.equals(1, inventarioHUD.inventario.size())
     }
     test "Alf muere cuando se queda sin vida" {        
         enemigoMelee.atacar(alf)

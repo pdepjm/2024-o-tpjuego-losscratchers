@@ -1,9 +1,5 @@
 import items.*
-
-object inventarioHUD {
-  const property image = "inventario.png"
-  const property position = game.at(13,0)
-}
+import HUD.*
 
 object alf {
   var property vida = 100
@@ -12,7 +8,6 @@ object alf {
   var property danio = 20
   //var property armaActual = espada
   //var property danio = armaActual.danio()
-  const inventario = []
   
   method position() = position
 
@@ -61,33 +56,21 @@ object alf {
     }
   }
 
-  // Para testear
-  method tamanioDelInventario() = inventario.size()
-
   // hamburgesa = +50 de vida
   // llave = abre puerta/cofre
   // espada = arma en mano
 
   method utilizar(pos) { 
-    const item = inventario.get(pos)
+    const item = inventarioHUD.inventario.get(pos)
     item.accion()
-    inventario.remove(item)
+    inventarioHUD.inventario.remove(item)
     game.removeVisual(item)
   }
   
   method agarrar(item) {
-    if (inventario.size() < 3 && item.esAgarrable()) {
-      inventario.add(item)
-      item.irInventario(12 + inventario.size(), 0)
+    if (inventarioHUD.inventario.size() < 3 && item.esAgarrable()) {
+      inventarioHUD.inventario.add(item)
+      inventarioHUD.irInventario(item)
     }
   }
-  
- /* method agarrar(item) {
-    if (inventario.size() < 3 && item.esAgarrable() )
-    {
-      inventario.add(item)
-      self.mostrarInventarioTemp(inventario.size())
-    }
-  }*/
-  
 }

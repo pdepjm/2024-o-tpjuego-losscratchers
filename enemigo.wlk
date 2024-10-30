@@ -1,4 +1,3 @@
-import main.posicionAleatoria
 /*
 class EnemigoCoolDown {
   const idTick
@@ -38,7 +37,9 @@ class GeneradorDeEnemigosConCoolDown {
 object enemigoMelee {
   const esAgarrable = false
   var property vida = 100
-  var position = posicionAleatoria.calcular()
+  const x_inicial = 3
+  const y_inicial = 3
+  var position = game.at(x_inicial, y_inicial)
   var property danio = 20
   var property image = "placeholder_attack.png"
   var property puedoAtacar = true
@@ -56,43 +57,58 @@ object enemigoMelee {
     }
   }
 
-  method movete(recorrido, pos_actual) 
-  { 
-    position = game.at(recorrido.get(pos_actual).get(0),recorrido.get(pos_actual).get(1))
-    
-    /*
-    if((1..4).anyOne().equals(1)){
-      position = self.position().right(1)
-    } else if((1..4).anyOne().equals(2)) {
-      position = self.position().up(1)
-    } else if((1..4).anyOne().equals(3)) {
-      position = self.position().left(1).
-    } else {
-      position = self.position().down(1)
-    }
-    
-    var x = self.position().x()
-    var y = self.position().y()
-    var limit_x = game.width()
-    var limit_y = game.height()
+  // ENEMIGO
+  var count = 0
+  var flag_1 = 0
+  var flag_2 = 1
+  var flag_3 = 1
+  var flag_4 = 1
 
-    if(x >= limit_x)
-    {
-      position = self.position().at(limit_x - 1, y)
-    } 
-    else if(x < game.origin().x()) 
-    {
-      position = self.position().at(game.origin().x(), y)
-    }  
-    else if(y >= game.height())
-    {
-      position = self.position().at(x, limit_y - 1)
-    } 
-    else if(y < game.origin().y()) 
-    {
-      position = self.position().at(x, limit_y)
-    }*/
+  method movete(ancho, alto) { 
+    // 3,3 4x2
+    // 7,5
+    var p_x = position.x()
+    var p_y = position.y()
 
+    if ( flag_1 == 0 )
+    {
+        count += 1
+        position = game.at(p_x + 1, p_y)
+        if(count == ancho) { 
+          flag_1 = 1 
+          flag_2 = 0
+          count = 0
+         }
+    } 
+    else if ( flag_2 == 0 )
+    {
+        count += 1
+        position = game.at(p_x, p_y + 1)
+        if(count == alto) { 
+          flag_2 = 1 
+          flag_3 = 0
+          count = ancho
+         }
+    } 
+    else if ( flag_3 == 0 )
+    {
+        count -= 1
+        position = game.at(p_x - 1, p_y)
+        if(count == 0) { 
+          flag_3 = 1 
+          flag_4 = 0
+          count = alto
+         }
+    } 
+    else if ( flag_4 == 0 )
+    {
+        count -= 1
+        position = game.at(p_x, p_y - 1)
+        if(count == 0) { 
+          flag_4 = 1 
+          flag_1 = 0
+         }
+    } 
 
   }
 

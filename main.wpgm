@@ -3,11 +3,12 @@ import wollok.game.*
 import alf.*
 import items.*
 import enemigo.*
+import HUD.*
 
 object posicionAleatoria {
   method calcular() = game.at(
-    0.randomUpTo(game.width()).truncate(0),
-    0.randomUpTo(game.height()).truncate(0)
+    0.randomUpTo(8).truncate(0),
+    0.randomUpTo(15).truncate(0)
   )
 }
 
@@ -27,8 +28,8 @@ program main {
     game.cellSize(100)
 	//game.boardGround("C1.jpg")
     game.ground("celda.png")
-
     game.addVisualCharacter(alf)
+    
     game.addVisual(inventarioHUD)
     game.addVisual(espada)
     game.addVisual(hamburgesa)
@@ -46,20 +47,18 @@ program main {
         enemigoMelee.atacar(alf)
     })
 
-    //game.onTick(3000,"Cooldown",{enemigoMelee.puedoAtacar(true)})
-    // REVISAR
+    // Consultar!
+    //game.whenCollideDo(alf, {alf.noPases(alf)})
 
-    // ENEMIGO 1
-    var posicion=0
-    const recorrido_enemigo = [[3,3],[4,3],[5,3],[6,3],[7,3],[7,4],[7,5],[6,5],[5,5],[4,5],[3,5],[3,4]]
-    game.onTick(1100, "movimiento", { enemigoMelee.movete(recorrido_enemigo,posicion); posicion += 1; if(posicion>=12){posicion=0} })
+    // game.onTick(3000,"Cooldown",{enemigoMelee.puedoAtacar(true)})
+    // REVISAR
+    game.onTick(1100, "movimiento", {enemigoMelee.movete(3,3)})
 
     // Revisar metodos de atacar y recibirDanio --> Como hacemos para saber que enemigo se esta atacando para pasarlo como parametro?
 	keyboard.z().onPressDo({ alf.atacar(enemigoMelee) })
     keyboard.a().onPressDo({ alf.utilizar(0) })
     keyboard.s().onPressDo({ alf.utilizar(1) })
     keyboard.d().onPressDo({ alf.utilizar(2) })
-    // keyboard.i().onPressDo({ alf.mostrarInventarioTemp()})
-
+    
 	game.start()
 }
