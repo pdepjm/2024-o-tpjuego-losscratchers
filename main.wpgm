@@ -7,18 +7,25 @@ import HUD.*
 
 object posicionAleatoria {
   method calcular() = game.at(
-    0.randomUpTo(8).truncate(0),
-    0.randomUpTo(15).truncate(0)
+    0.randomUpTo(16).truncate(0),
+    1.randomUpTo(8).truncate(0)
   )
 }
 
 object interactuador {
     method obtenerPrimerElemento(key,accion){
-      		const colliders = game.colliders(alf)
-		if (colliders.isEmpty()) 
-			throw new DomainException(message = "Apreta "+ key + accion, source = alf)
-    return colliders.head()
+        const colliders = game.colliders(alf)
+        if (colliders.isEmpty()) 
+                throw new DomainException(message = "Apreta "+ key + accion, source = alf)
+        return colliders.head()
     }
+}
+
+object limiteHabitacion {
+    method estaAlBorde(entidad) = entidad.position().x() == 16 
+                                  or entidad.position().y() == 8
+                                  or entidad.position().x() == 0
+                                  or entidad.position().y() == 0
 }
 
 program main {
@@ -28,12 +35,14 @@ program main {
     game.cellSize(100)
 	//game.boardGround("C1.jpg")
     game.ground("celda.png")
+
     game.addVisualCharacter(alf)
-    
+
     game.addVisual(inventarioHUD)
     game.addVisual(espada)
     game.addVisual(hamburgesa)
     game.addVisual(llave)
+    game.addVisual(cofre)
     game.addVisual(enemigoMelee)
 
     keyboard.x().onPressDo({
@@ -53,6 +62,7 @@ program main {
     // game.onTick(3000,"Cooldown",{enemigoMelee.puedoAtacar(true)})
     // REVISAR
     game.onTick(1100, "movimiento", {enemigoMelee.movete(3,3)})
+    game.schedule(0, {if(limiteHabitacion.estaAlBorde(alf)){alf.position(game.at(5,5))}})
 
     // Revisar metodos de atacar y recibirDanio --> Como hacemos para saber que enemigo se esta atacando para pasarlo como parametro?
 	keyboard.z().onPressDo({ alf.atacar(enemigoMelee) })

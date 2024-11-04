@@ -1,6 +1,7 @@
 import enemigo.*
 import alf.*
 import items.*
+import HUD.*
 
 describe " Test entrega 1 - danio/vida/items/inventario/enemigos "
 {
@@ -30,7 +31,7 @@ describe " Test entrega 1 - danio/vida/items/inventario/enemigos "
         hamburgesa.accion()
         assert.equals(100, alf.vida())
     }
-    test "Los items al agarrarse se agregan al inventario y al utilizarlos desaparacen del inventario" {
+    test "Los items al agarrarse se agregan al inventario y al utilizarlos desaparecen del inventario" {
         alf.agarrar(hamburgesa)
         alf.agarrar(espada)
         alf.utilizar(0)

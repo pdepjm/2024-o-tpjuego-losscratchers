@@ -35,7 +35,7 @@ class GeneradorDeEnemigosConCoolDown {
 */
 
 object enemigoMelee {
-  const esAgarrable = false
+  const agarrable = false
   var property vida = 100
   const x_inicial = 3
   const y_inicial = 3

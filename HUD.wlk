@@ -1,6 +1,19 @@
 object inventarioHUD {
-  const property image = "inventario.png"
-  const property position = game.at(13,0)
+  const property image = "franja_inventario.png"
+  const property position = game.at(0,0)
   const inventario = []
-  method irInventario(item) {item.position(12 + inventario.size(), 0)}
+
+  method tomar(item) {
+    if (inventario.size() < 3 && item.agarrable()) {
+      inventario.add(item)
+      item.position(game.at(12 + inventario.size(), 0))
+    }
+  }
+
+  method usar(pos){
+    const item = inventario.get(pos)
+    item.accion()
+    inventario.remove(item)
+    game.removeVisual(item)
+  }
 }

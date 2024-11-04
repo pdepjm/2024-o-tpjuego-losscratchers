@@ -3,8 +3,8 @@ import HUD.*
 
 object alf {
   var property vida = 100
-  var property position = game.origin()
-  var property image = "placeholder.png"
+  var property position = game.at(1,1)
+  var property image = "alf_sprite.png"
   var property danio = 20
   //var property armaActual = espada
   //var property danio = armaActual.danio()
@@ -58,19 +58,13 @@ object alf {
 
   // hamburgesa = +50 de vida
   // llave = abre puerta/cofre
-  // espada = arma en mano
+  // espada = +20 de danio
 
   method utilizar(pos) { 
-    const item = inventarioHUD.inventario.get(pos)
-    item.accion()
-    inventarioHUD.inventario.remove(item)
-    game.removeVisual(item)
+    inventarioHUD.usar(pos)
   }
   
   method agarrar(item) {
-    if (inventarioHUD.inventario.size() < 3 && item.esAgarrable()) {
-      inventarioHUD.inventario.add(item)
-      inventarioHUD.irInventario(item)
-    }
-  }
+    inventarioHUD.tomar(item)
+  }  
 }
