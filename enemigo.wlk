@@ -34,18 +34,16 @@ class GeneradorDeEnemigosConCoolDown {
 }
 */
 
-object enemigoMelee {
-  const agarrable = false
-  var property vida = 100
-  const x_inicial = 3
-  const y_inicial = 3
+class Enemigo {
+  var property image
   var position = game.at(x_inicial, y_inicial)
-  var property danio = 20
-  var property image = "placeholder_attack.png"
+  const agarrable = false
+  var property vida
+  var property danio
+  const x_inicial
+  const y_inicial
   var property puedoAtacar = true
-
   method position() = position
-
   method danio() = danio
 
   // Revisar metodos de atacar y recibirDanio tanto en Alf como en los enemigos

@@ -33,7 +33,6 @@ program main {
     game.height(8)
     game.width(16)
     game.cellSize(100)
-	//game.boardGround("C1.jpg")
     game.ground("celda.png")
 
     game.addVisualCharacter(alf)
@@ -59,10 +58,10 @@ program main {
     // Consultar!
     //game.whenCollideDo(alf, {alf.noPases(alf)})
 
-    // game.onTick(3000,"Cooldown",{enemigoMelee.puedoAtacar(true)})
+    game.onTick(3000,"Cooldown",{enemigoMelee.puedoAtacar(true)})
     // REVISAR
     game.onTick(1100, "movimiento", {enemigoMelee.movete(3,3)})
-    game.schedule(0, {if(limiteHabitacion.estaAlBorde(alf)){alf.position(game.at(5,5))}})
+    game.schedule(0, {if(limiteHabitacion.estaAlBorde(alf)){game.say(alf, "Estoy en el borde")}})
 
     // Revisar metodos de atacar y recibirDanio --> Como hacemos para saber que enemigo se esta atacando para pasarlo como parametro?
 	keyboard.z().onPressDo({ alf.atacar(enemigoMelee) })
