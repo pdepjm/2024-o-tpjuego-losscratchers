@@ -3,7 +3,7 @@ import HUD.*
 
 object alf {
   var property vida = 100
-  var property position = game.at(1,1)
+  var property position = game.at(0,1)
   var property image = "alf_sprite.png"
   var property danio = 20
   
@@ -39,9 +39,10 @@ object alf {
 
   method utilizar(pos) { 
     inventarioHUD.usar(pos)
+    inventarioHUD.moverItems()
   }
   
   method agarrar(item) {
     inventarioHUD.tomar(item)
-  }  
+  }
 }

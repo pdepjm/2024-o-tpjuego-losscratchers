@@ -1,47 +1,13 @@
-/*
-class EnemigoCoolDown {
-  const idTick
-  var puedeAtacar = false
-  
-  method configurarTick() {
-    game.onTick(2000, "Cooldown" + idTick, {self.habilitarAtaque()})
-  }
-
-  method habilitarAtaque() {
-    puedeAtacar = true
-  }
-
-  method atacar(unPersonaje) {
-    if(puedeAtacar) {
-       unPersonaje.recibirDanio()
-       puedeAtacar = false
-    }
-  }
-
-  // Demás implementaciones
-}
-class GeneradorDeEnemigosConCoolDown {
-  // Atributos locos 
-
-  method crearEnemigo() {
-    const enemigoNuevo = new EnemigoCoolDown(idTick = 1)
-    enemigoNuevo.configurarTick()
-    enemigoNuevo.agregarColisiones()
-    game.addVisual(enemigoNuevo)
-  }
-
-  // Demás implementaciones
-}
-*/
+import wollok.game.*
 
 class Enemigo {
   var property image
-  var position = game.at(x_inicial, y_inicial)
   const agarrable = false
   var property vida
   var property danio
   const x_inicial
   const y_inicial
+  var position = game.at(x_inicial, y_inicial)
   var property puedoAtacar = true
   method position() = position
   method danio() = danio
@@ -121,3 +87,8 @@ class Enemigo {
     }
   }
 }
+
+// Crear instancias
+const enemigo1 = new Enemigo(image = "placeholder_attack.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 3)
+const enemigo2 = new Enemigo(image = "placeholder_attack.png", vida = 100, danio = 20, x_inicial = 10, y_inicial = 6)
+const enemigo3 = new Enemigo(image = "placeholder_attack.png", vida = 500, danio = 40, x_inicial = 8, y_inicial = 8)

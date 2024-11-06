@@ -4,6 +4,7 @@ import alf.*
 import items.*
 import enemigo.*
 import HUD.*
+import mapa.*
 
 object posicionAleatoria {
   method calcular() = game.at(
@@ -33,38 +34,49 @@ program main {
     game.height(8)
     game.width(16)
     game.cellSize(100)
-    game.ground("celda.png")
 
+    // Alf
     game.addVisualCharacter(alf)
 
+    // Inventario
     game.addVisual(inventarioHUD)
-    game.addVisual(espada)
-    game.addVisual(hamburgesa)
-    game.addVisual(llave)
-    game.addVisual(cofre)
-    game.addVisual(enemigoMelee)
+
+    // Asignar origenes y destinos de las puertas una vez creadas las habitaciones
+    puerta1.asignarHabitaciones(h1,h2)
+    puerta1.asignarPuertaDestino(puerta2)
+    puerta2.asignarHabitaciones(h2,h1)
+    puerta2.asignarPuertaDestino(puerta1)
+
+    // Habitacion inicial
+    h1.generarHabitacion()
 
     keyboard.x().onPressDo({
         const item = interactuador.obtenerPrimerElemento("x"," sobre un item para agarrarlo")
         alf.agarrar(item)
     })
 
+    // Abrir puerta
+    keyboard.e().onPressDo({
+        const puerta = interactuador.obtenerPrimerElemento("e"," sobre una puerta para pasar")
+        puerta.cambiarCelda()
+    })
+
     keyboard.enter().onPressDo({ game.say(alf, alf.vida().toString().concat(""))})
 
-    game.whenCollideDo(enemigoMelee, {alf => 
-        enemigoMelee.atacar(alf)
+    game.whenCollideDo(enemigo1, {alf => 
+        enemigo1.atacar(alf)
     })
 
     // Consultar!
-    //game.whenCollideDo(alf, {alf.noPases(alf)})
+    // game.whenCollideDo(alf, {alf.noPases(alf)})
 
-    game.onTick(3000,"Cooldown",{enemigoMelee.puedoAtacar(true)})
+    game.onTick(3000,"Cooldown",{enemigo1.puedoAtacar(true)})
     // REVISAR
-    game.onTick(1100, "movimiento", {enemigoMelee.movete(3,3)})
+    game.onTick(1100, "movimiento", {enemigo1.movete(3,3)})
     game.schedule(0, {if(limiteHabitacion.estaAlBorde(alf)){game.say(alf, "Estoy en el borde")}})
 
     // Revisar metodos de atacar y recibirDanio --> Como hacemos para saber que enemigo se esta atacando para pasarlo como parametro?
-	keyboard.z().onPressDo({ alf.atacar(enemigoMelee) })
+	keyboard.z().onPressDo({ alf.atacar(enemigo1) })
     keyboard.a().onPressDo({ alf.utilizar(0) })
     keyboard.s().onPressDo({ alf.utilizar(1) })
     keyboard.d().onPressDo({ alf.utilizar(2) })

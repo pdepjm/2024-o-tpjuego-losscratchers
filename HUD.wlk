@@ -16,4 +16,12 @@ object inventarioHUD {
     inventario.remove(item)
     game.removeVisual(item)
   }
+  
+  method moverItems() {
+    var i = 1
+    inventario.forEach({ item => 
+      item.position(game.at(12 + i, 0))
+      i += 1
+    })
+  }
 }

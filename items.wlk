@@ -37,7 +37,6 @@ class ItemDeAlmacenamiento inherits Item (agarrable = false) {
       game.addVisual(hamburgesaMAX)
       game.removeVisual(self)
     }
-    
   }
 }
 

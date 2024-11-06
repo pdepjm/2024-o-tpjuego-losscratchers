@@ -6,24 +6,24 @@ import HUD.*
 describe " Test entrega 1 - danio/vida/items/inventario/enemigos "
 {
     test "El enemigo empieza con toda su vida" {
-        assert.equals(100, enemigoMelee.vida())
+        assert.equals(100, enemigo1.vida())
     }
     test "El enemigo recibe danio" {
-        alf.atacar(enemigoMelee)
-        assert.equals(80, enemigoMelee.vida())
+        alf.atacar(enemigo1)
+        assert.equals(80, enemigo1.vida())
     }
     test "El enemigo recibe mas danio cuando Alf tiene la espada" {
         espada.accion()
-        alf.atacar(enemigoMelee)
-        assert.equals(60, enemigoMelee.vida())
+        alf.atacar(enemigo1)
+        assert.equals(60, enemigo1.vida())
     }
     test "La hamburguesa cura a Alf" {        
-        enemigoMelee.atacar(alf)
-        enemigoMelee.puedoAtacar(true)
-        enemigoMelee.atacar(alf)
-        enemigoMelee.puedoAtacar(true)
-        enemigoMelee.atacar(alf)
-        enemigoMelee.puedoAtacar(true)
+        enemigo1.atacar(alf)
+        enemigo1.puedoAtacar(true)
+        enemigo1.atacar(alf)
+        enemigo1.puedoAtacar(true)
+        enemigo1.atacar(alf)
+        enemigo1.puedoAtacar(true)
         hamburgesa.accion()
         assert.equals(90, alf.vida())
     }
@@ -38,16 +38,16 @@ describe " Test entrega 1 - danio/vida/items/inventario/enemigos "
         assert.equals(1, inventarioHUD.inventario.size())
     }
     test "Alf muere cuando se queda sin vida" {        
-        enemigoMelee.atacar(alf)
-        enemigoMelee.puedoAtacar(true)
-        enemigoMelee.atacar(alf)
-        enemigoMelee.puedoAtacar(true)
-        enemigoMelee.atacar(alf)
-        enemigoMelee.puedoAtacar(true)
-        enemigoMelee.atacar(alf)
-        enemigoMelee.puedoAtacar(true)
-        enemigoMelee.atacar(alf)
-        enemigoMelee.puedoAtacar(true)
+        enemigo1.atacar(alf)
+        enemigo1.puedoAtacar(true)
+        enemigo1.atacar(alf)
+        enemigo1.puedoAtacar(true)
+        enemigo1.atacar(alf)
+        enemigo1.puedoAtacar(true)
+        enemigo1.atacar(alf)
+        enemigo1.puedoAtacar(true)
+        enemigo1.atacar(alf)
+        enemigo1.puedoAtacar(true)
         assert.that(alf.vida() <= 0)
     }
 }
