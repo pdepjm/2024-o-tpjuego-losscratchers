@@ -24,4 +24,5 @@ UTN - Facultad Regional Buenos Aires - Materia Paradigmas de Programación
 
 - Las flechas para moverse
 - `Z` para atacar
-- `X` para interactuar
+- `X` para agarrar items
+- `E` para abrir puerta
