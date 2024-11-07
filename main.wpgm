@@ -30,16 +30,14 @@ object limiteHabitacion {
 }
 
 program main {
-	game.title("The Legend of Alf")
+    game.title("The Legend of Alf")
     game.height(8)
     game.width(16)
     game.cellSize(100)
 
-    // Alf
-    game.addVisualCharacter(alf)
-
     // Inventario
     game.addVisual(inventarioHUD)
+    game.addVisual(vidaHUD) 
 
     // Asignar origenes y destinos de las puertas una vez creadas las habitaciones
     puerta1.asignarHabitaciones(h1,h2)
@@ -54,6 +52,10 @@ program main {
     // Habitacion inicial
     h1.generarHabitacion()
     h1.refrescarEnemigos()
+    
+    // Alf
+    //game.addVisualCharacter(alf)
+    vidaHUD.actualizarVida(alf)
 
     keyboard.x().onPressDo({
         const item = interactuador.obtenerPrimerElemento("x"," sobre un item para agarrarlo")
