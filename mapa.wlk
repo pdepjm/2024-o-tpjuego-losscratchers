@@ -6,6 +6,7 @@ import HUD.*
 class Puerta {
     var property image = "puerta-ancha.png"
     const property position
+    var property estaCerrada
     var property habitacionOrigen = 0
     var property habitacionDestino = 0
     var property puertaDestino = 0
@@ -80,20 +81,20 @@ class Habitacion {
 }
 
 // Puertas
-const puerta1 = new Puerta(position = game.at(15,4))
-const puerta2 = new Puerta(position = game.at(0,4))
-const puertaFinal = new Puerta(position = game.at(8,1))
+const puerta1 = new Puerta(estaCerrada = false, position = game.at(15,4))
+const puerta2 = new Puerta(estaCerrada = false, position = game.at(0,4))
+const puertaFinal = new Puerta(estaCerrada = false, position = game.at(8,1))
 
 // Puerta para el jefe final
-object puerta3 inherits Puerta(position = game.at(8,7)) {
+object puerta3 inherits Puerta(estaCerrada = true, position = game.at(8,7)) {
     override method cambiarCelda() {
-        if (inventarioHUD.inventario.contains(llaveJefe)) {
+        if (self.estaCerrada().not()) {
             super()
         }
     }
 
     method accion() {
-        self.cambiarCelda()
+        estaCerrada = false
     }
 }
 

@@ -34,7 +34,9 @@ class ItemDeApertura inherits Item {
 
 class ItemDeAlmacenamiento inherits Item (agarrable = false) {
   override method accion() {
-    if(alf.position().distance(self.position()) == 1){
+    if(alf.position().distance(self.position()) == 1) {
+      alf.habitacionActual().itemsDisponibles().remove(self)
+      alf.habitacionActual().itemsDisponibles().add(llaveJefe)
       game.addVisual(llaveJefe)
       game.removeVisual(self)
     }
@@ -45,4 +47,4 @@ const espada = new ItemOfensivo(image = "espada.png", danioExtra = 20)
 const hamburgesa = new ItemDeCuracion(image = "hamburguesa.png", curacion = 50)
 const cofre = new ItemDeAlmacenamiento(image = "cofre.png", position = game.at(14,6))
 const llave = new ItemDeApertura(abreA = cofre, image = "llave.png")
-const llaveJefe = new ItemDeApertura(abreA = puerta3, image = "golden_apple.wepb", position = cofre.position())
+const llaveJefe = new ItemDeApertura(abreA = puerta3, image = "llave.png", position = cofre.position())
