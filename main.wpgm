@@ -54,7 +54,7 @@ program main {
     h1.refrescarEnemigos()
     
     // Alf
-    //game.addVisualCharacter(alf)
+    game.addVisualCharacter(alf)
     vidaHUD.actualizarVida(alf)
 
     keyboard.x().onPressDo({

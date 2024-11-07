@@ -25,7 +25,6 @@ class Puerta {
             // Elimina las puertas, y todos los items y enemigos que quedaron restando en la celda
             habitacionOrigen.puertasDisponibles().forEach { puerta => game.removeVisual(puerta) }
             habitacionOrigen.itemsDisponibles().forEach { item => game.removeVisual(item) }
-            habitacionOrigen.enemigosDisponibles().forEach { enemigo => game.removeVisual(enemigo) }
             
             // Generamos las puertas, items y enemigos para que aparezcan en la nueva celda
             habitacionDestino.generarPuertas()
@@ -35,7 +34,6 @@ class Puerta {
             // Mover a Alf
             alf.position(puertaDestino.position())
             alf.habitacionActual(habitacionDestino)
-            alf.habitacionActual.generarAlf()
 
             // Reiniciar enemigos
             habitacionDestino.refrescarEnemigos()
@@ -61,17 +59,10 @@ class Habitacion {
         enemigosDisponibles.forEach{ enemigo => game.addVisual(enemigo) }
     }
 
-    method generarAlf()
-    {
-        game.removeVisual(alf)
-        game.addVisualCharacter(alf)
-    }
-
     method generarHabitacion() {
         self.generarPuertas()
         self.generarItems()
         self.generarEnemigos()
-        self.generarAlf()
         game.ground("celda.png") // Fondo
     }
 
@@ -79,7 +70,7 @@ class Habitacion {
         alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.whenCollideDo(enemigoActual, {alf => 
             enemigoActual.atacar(alf)
         })}
-        alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.onTick(3000,"Cooldown",{enemigoActual.puedoAtacar(true)}) }
+        alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.schedule(3000,{enemigoActual.puedoAtacar(true)}) }
         alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.onTick(1100, "movimiento", {enemigoActual.movete()}) }
         alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => keyboard.z().onPressDo({ alf.atacar(enemigoActual) }) }
     }
@@ -95,7 +86,7 @@ const puertaFinal = new Puerta(estaCerrada = false, position = game.at(8,1))
 // Puerta para el jefe final
 object puerta3 inherits Puerta(estaCerrada = true, position = game.at(8,7)) {
     override method cambiarCelda() {
-        if (self.estaCerrada().not()) {
+        if (self.estaCerrada().negate()) {
             super()
         }
     }
