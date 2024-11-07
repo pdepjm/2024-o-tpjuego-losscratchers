@@ -1,5 +1,6 @@
 import HUD.*
 import main.posicionAleatoria
+import mapa.*
 
 import alf.*
 
@@ -25,16 +26,16 @@ class ItemDeCuracion inherits Item {
 }
 
 class ItemDeApertura inherits Item {
+  const abreA
   override method accion() {
-    cofre.accion()
+    abreA.accion()
   }
 }
 
 class ItemDeAlmacenamiento inherits Item (agarrable = false) {
   override method accion() {
     if(alf.position().distance(self.position()) == 1){
-      const hamburgesaMAX = new ItemDeCuracion(image = "golden_apple.wepb", curacion = 80, position = self.position())
-      game.addVisual(hamburgesaMAX)
+      game.addVisual(llaveJefe)
       game.removeVisual(self)
     }
   }
@@ -43,4 +44,5 @@ class ItemDeAlmacenamiento inherits Item (agarrable = false) {
 const espada = new ItemOfensivo(image = "espada.png", danioExtra = 20)
 const hamburgesa = new ItemDeCuracion(image = "hamburguesa.png", curacion = 50)
 const cofre = new ItemDeAlmacenamiento(image = "cofre.png", position = game.at(14,6))
-const llave = new ItemDeApertura(image = "llave.png")
+const llave = new ItemDeApertura(abreA = cofre, image = "llave.png")
+const llaveJefe = new ItemDeApertura(abreA = puerta3, image = "golden_apple.wepb", position = cofre.position())

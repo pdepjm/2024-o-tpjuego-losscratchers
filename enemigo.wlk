@@ -1,5 +1,7 @@
 import wollok.game.*
 
+import alf.*
+
 class Enemigo {
   var property image
   const agarrable = false
@@ -7,6 +9,8 @@ class Enemigo {
   var property danio
   const x_inicial
   const y_inicial
+  const movete_x
+  const movete_y
   var position = game.at(x_inicial, y_inicial)
   var property puedoAtacar = true
   method position() = position
@@ -28,7 +32,7 @@ class Enemigo {
   var flag_3 = 1
   var flag_4 = 1
 
-  method movete(ancho, alto) { 
+  method movete() { 
     // 3,3 4x2
     // 7,5
     var p_x = position.x()
@@ -38,7 +42,7 @@ class Enemigo {
     {
         count += 1
         position = game.at(p_x + 1, p_y)
-        if(count == ancho) { 
+        if(count == movete_x) { 
           flag_1 = 1 
           flag_2 = 0
           count = 0
@@ -48,10 +52,10 @@ class Enemigo {
     {
         count += 1
         position = game.at(p_x, p_y + 1)
-        if(count == alto) { 
+        if(count == movete_y) { 
           flag_2 = 1 
           flag_3 = 0
-          count = ancho
+          count = movete_x
          }
     } 
     else if ( flag_3 == 0 )
@@ -61,7 +65,7 @@ class Enemigo {
         if(count == 0) { 
           flag_3 = 1 
           flag_4 = 0
-          count = alto
+          count = movete_y
          }
     } 
     else if ( flag_4 == 0 )
@@ -84,11 +88,13 @@ class Enemigo {
   method morir() {
     if(vida <= 0){
       game.removeVisual(self)
+      alf.habitacionActual().enemigosDisponibles().remove(self)
     }
   }
 }
 
 // Crear instancias
-const enemigo1 = new Enemigo(image = "placeholder_attack.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 3)
-const enemigo2 = new Enemigo(image = "placeholder_attack.png", vida = 100, danio = 20, x_inicial = 10, y_inicial = 6)
-const enemigo3 = new Enemigo(image = "placeholder_attack.png", vida = 500, danio = 40, x_inicial = 8, y_inicial = 8)
+const enemigo1 = new Enemigo(image = "placeholder_attack.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 3, movete_x = 3, movete_y = 3)
+const enemigo2 = new Enemigo(image = "placeholder_attack.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 4, movete_x = 2, movete_y = 2)
+const jefe = new Enemigo(image = "placeholder_attack.png", vida = 500, danio = 50, x_inicial = 3, y_inicial = 3, movete_x = 4, movete_y = 2)
+const enemigos = [enemigo1, enemigo2, jefe]

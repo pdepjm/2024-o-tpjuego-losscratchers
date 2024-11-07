@@ -1,11 +1,13 @@
 import items.*
 import HUD.*
+import mapa.*
 
 object alf {
   var property vida = 100
   var property position = game.at(0,1)
   var property image = "alf_sprite.png"
   var property danio = 20
+  var property habitacionActual = h1 // Empieza en h1
   
   method position() = position
 
