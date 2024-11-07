@@ -13,6 +13,7 @@ object alf {
 
   method curarse(curacion) {
     vida = (vida + curacion).min(100)
+    vidaHUD.actualizarVida(self)
   }
   
   method danio(danioExtra) {
@@ -30,6 +31,7 @@ object alf {
 
   method recibirDanio(enemigo) {
     vida -= enemigo.danio()
+    vidaHUD.actualizarVida(self)
     self.morir()
   }
 
