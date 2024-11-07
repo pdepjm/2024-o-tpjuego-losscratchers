@@ -35,6 +35,7 @@ class Puerta {
             // Mover a Alf
             alf.position(puertaDestino.position())
             alf.habitacionActual(habitacionDestino)
+            alf.habitacionActual.generarAlf()
 
             // Reiniciar enemigos
             habitacionDestino.refrescarEnemigos()
@@ -60,18 +61,24 @@ class Habitacion {
         enemigosDisponibles.forEach{ enemigo => game.addVisual(enemigo) }
     }
 
+    method generarAlf()
+    {
+        game.removeVisual(alf)
+        game.addVisualCharacter(alf)
+    }
+
     method generarHabitacion() {
+        self.generarPuertas()
         self.generarItems()
         self.generarEnemigos()
-        self.generarPuertas()
+        self.generarAlf()
         game.ground("celda.png") // Fondo
     }
 
     method refrescarEnemigos() {
         alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.whenCollideDo(enemigoActual, {alf => 
             enemigoActual.atacar(alf)
-        })
-        }
+        })}
         alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.onTick(3000,"Cooldown",{enemigoActual.puedoAtacar(true)}) }
         alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.onTick(1100, "movimiento", {enemigoActual.movete()}) }
         alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => keyboard.z().onPressDo({ alf.atacar(enemigoActual) }) }
