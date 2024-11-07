@@ -11,7 +11,12 @@ UTN - Facultad Regional Buenos Aires - Materia Paradigmas de Programación
 - Gonza Galarza (GonzaGalarza)
 ## Capturas 
 
-![pepita](assets/golondrina.png)
+![alf](assets/alf_sprite.png)
+![cofre](assets/cofre.png)
+![hamburguesa](assets/hamburguesa.png)
+![espada](assets/espada.png)
+![llave](assets/llave.png)
+![enemigo](assets/placeholder_attack.png)
 
 ## Reglas de Juego / Instrucciones
 
@@ -24,4 +29,8 @@ UTN - Facultad Regional Buenos Aires - Materia Paradigmas de Programación
 
 - Las flechas para moverse
 - `Z` para atacar
-- `X` para interactuar
+- `X` para agarrar items
+- `E` para abrir puerta
+- `A` para utilizar el primer item del inventario
+- `S` para utilizar el segundo item del inventario
+- `D` para utilizar el tercer item del inventario
