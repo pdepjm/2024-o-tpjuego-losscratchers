@@ -70,7 +70,6 @@ class Habitacion {
         alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.whenCollideDo(enemigoActual, {alf => 
             enemigoActual.atacar(alf)
         })}
-        alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.schedule(3000,{enemigoActual.puedoAtacar(true)}) }
         alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.onTick(1100, "movimiento", {enemigoActual.movete()}) }
         alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => keyboard.z().onPressDo({ alf.atacar(enemigoActual) }) }
     }

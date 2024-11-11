@@ -64,8 +64,8 @@ program main {
     })
 
     // Abrir puerta
-    keyboard.e().onPressDo({
-        const puerta = interactuador.obtenerPrimerElemento("e"," sobre una puerta para pasar")
+    keyboard.c().onPressDo({
+        const puerta = interactuador.obtenerPrimerElemento("c"," sobre una puerta para pasar")
         puerta.cambiarCelda()
     })
 
@@ -77,6 +77,8 @@ program main {
     keyboard.s().onPressDo({ alf.utilizar(1) })
     keyboard.d().onPressDo({ alf.utilizar(2) })
     
+    //alf.iniciar()
+
 	game.start()
 }
 

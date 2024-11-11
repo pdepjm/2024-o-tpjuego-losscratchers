@@ -4,17 +4,13 @@ import alf.*
 
 class Enemigo {
   var property image
-  const agarrable = false
   var property vida
   var property danio
   const x_inicial
   const y_inicial
-  const movete_x
-  const movete_y
-  var position = game.at(x_inicial, y_inicial)
+  var property position = game.at(x_inicial, y_inicial)
   var property puedoAtacar = true
-  method position() = position
-  method danio() = danio
+  const movimiento
 
   // Revisar metodos de atacar y recibirDanio tanto en Alf como en los enemigos
   method atacar(alf) {
@@ -26,58 +22,8 @@ class Enemigo {
   }
 
   // ENEMIGO
-  var count = 0
-  var flag_1 = 0
-  var flag_2 = 1
-  var flag_3 = 1
-  var flag_4 = 1
-
-  method movete() { 
-    // 3,3 4x2
-    // 7,5
-    var p_x = position.x()
-    var p_y = position.y()
-
-    if ( flag_1 == 0 )
-    {
-        count += 1
-        position = game.at(p_x + 1, p_y)
-        if(count == movete_x) { 
-          flag_1 = 1 
-          flag_2 = 0
-          count = 0
-         }
-    } 
-    else if ( flag_2 == 0 )
-    {
-        count += 1
-        position = game.at(p_x, p_y + 1)
-        if(count == movete_y) { 
-          flag_2 = 1 
-          flag_3 = 0
-          count = movete_x
-         }
-    } 
-    else if ( flag_3 == 0 )
-    {
-        count -= 1
-        position = game.at(p_x - 1, p_y)
-        if(count == 0) { 
-          flag_3 = 1 
-          flag_4 = 0
-          count = movete_y
-         }
-    } 
-    else if ( flag_4 == 0 )
-    {
-        count -= 1
-        position = game.at(p_x, p_y - 1)
-        if(count == 0) { 
-          flag_4 = 1 
-          flag_1 = 0
-         }
-    } 
-
+  method movete() {
+    movimiento.actualizarPosicion(self)
   }
 
   method recibirDanio(alf) {
@@ -99,7 +45,65 @@ class Enemigo {
   }
 }
 
+class Trayectos {
+  const movete_x
+  const movete_y
+
+  var count = 0
+  var flag_1 = 0
+  var flag_2 = 1
+  var flag_3 = 1
+  var flag_4 = 1
+
+  method actualizarPosicion(entidad) { 
+    const p_x = entidad.position().x()
+    const p_y = entidad.position().y()
+
+    if ( flag_1 == 0 ){
+      count += 1
+      entidad.position(game.at(p_x + 1, p_y))
+      if(count == movete_x) { 
+        flag_1 = 1 
+        flag_2 = 0
+        count = 0
+      }
+    } 
+    else if ( flag_2 == 0 ){
+      count += 1
+      entidad.position(game.at(p_x, p_y + 1))
+      if(count == movete_y) { 
+        flag_2 = 1 
+        flag_3 = 0
+        count = movete_x
+      }
+    } 
+    else if ( flag_3 == 0 ){
+      count -= 1
+      entidad.position(game.at(p_x - 1, p_y))
+      if(count == 0) { 
+        flag_3 = 1 
+        flag_4 = 0
+        count = movete_y
+      }
+    } 
+    else if ( flag_4 == 0 ){
+      count -= 1
+      entidad.position(game.at(p_x, p_y - 1))
+      if(count == 0) { 
+        flag_4 = 1 
+        flag_1 = 0
+      }
+    } 
+  }
+}
+
+// Tipos de trayectos
+const cuadradoChico = new Trayectos(movete_x = 2, movete_y = 2)
+const cuadradoGrande = new Trayectos(movete_x = 3, movete_y = 3)
+const lineaHorizontal = new Trayectos(movete_x = 3, movete_y = 1)
+const lineaVertical = new Trayectos(movete_x = 1, movete_y = 3)
+
 // Crear instancias
-const enemigo1 = new Enemigo(image = "placeholder_attack.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 3, movete_x = 3, movete_y = 3)
-const enemigo2 = new Enemigo(image = "placeholder_attack.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 4, movete_x = 2, movete_y = 2)
-const jefe = new Enemigo(image = "placeholder_attack_jefe.png", vida = 500, danio = 50, x_inicial = 3, y_inicial = 3, movete_x = 4, movete_y = 2)
+const enemigo1 = new Enemigo(image = "placeholder_attack.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 3, movimiento = lineaVertical)
+const enemigo2 = new Enemigo(image = "placeholder_attack.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 4, movimiento = cuadradoChico)
+const jefe = new Enemigo(image = "placeholder_attack_jefe.png", vida = 500, danio = 50, x_inicial = 2, y_inicial = 2, movimiento = lineaHorizontal)

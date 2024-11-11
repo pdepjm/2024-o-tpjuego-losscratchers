@@ -47,6 +47,12 @@ object alf {
   }
   
   method agarrar(item) {
-    inventarioHUD.tomar(item)
+    item.irAlInventario()
   }
+
+  /*
+  method iniciar(){
+    keyboard.z().onPressDo({ self.atacar(enemigoActual)})
+  }
+  */
 }

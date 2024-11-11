@@ -6,9 +6,11 @@ import alf.*
 
 class Item {
   const property image
-  const property agarrable = true
   var property position = posicionAleatoria.calcular()
   method accion()
+  method irAlInventario(){
+    inventarioHUD.tomar(self)
+  }
 }
 
 class ItemOfensivo inherits Item {
@@ -32,7 +34,7 @@ class ItemDeApertura inherits Item {
   }
 }
 
-class ItemDeAlmacenamiento inherits Item (agarrable = false) {
+class ItemDeAlmacenamiento inherits Item () {
   override method accion() {
     if(alf.position().distance(self.position()) == 1) {
       alf.habitacionActual().itemsDisponibles().remove(self)
@@ -41,6 +43,7 @@ class ItemDeAlmacenamiento inherits Item (agarrable = false) {
       game.removeVisual(self)
     }
   }
+  override method irAlInventario() {}
 }
 
 const espada = new ItemOfensivo(image = "espada.png", danioExtra = 20, position = game.at(11,6))
