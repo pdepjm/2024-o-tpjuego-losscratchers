@@ -47,7 +47,7 @@ class ItemDeAlmacenamiento inherits Item () {
 }
 
 const espada = new ItemOfensivo(image = "espada.png", danioExtra = 20, position = game.at(11,6))
-const hamburgesa = new ItemDeCuracion(image = "hamburguesa.png", curacion = 50, position = game.at(12,6))
-const cofre = new ItemDeAlmacenamiento(image = "cofre.png", position = game.at(14,6))
+const hamburgesa = new ItemDeCuracion(image = "hamburguesa.png", curacion = 50, position = game.at(10,3))
+const cofre = new ItemDeAlmacenamiento(image = "cofre.png", position = game.at(14,4))
 const llave = new ItemDeApertura(abreA = cofre, image = "llave.png", position = game.at(13,6))
 const llaveJefe = new ItemDeApertura(abreA = puerta3, image = "llaveJefe.png", position = cofre.position())

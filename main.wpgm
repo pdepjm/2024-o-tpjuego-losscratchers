@@ -35,10 +35,6 @@ program main {
     game.width(16)
     game.cellSize(100)
 
-    // Inventario
-    game.addVisual(inventarioHUD)
-    game.addVisual(vidaHUD) 
-
     // Asignar origenes y destinos de las puertas una vez creadas las habitaciones
     puerta1.asignarHabitaciones(h1,h2)
     puerta1.asignarPuertaDestino(puerta2)
@@ -48,10 +44,25 @@ program main {
     puerta3.asignarPuertaDestino(puertaFinal)
     puertaFinal.asignarHabitaciones(h3, h2)
     puertaFinal.asignarPuertaDestino(puerta3)
+    puerta4.asignarHabitaciones(h2,h4)
+    puerta4.asignarPuertaDestino(puerta5)
+    puerta5.asignarHabitaciones(h4,h2)
+    puerta5.asignarPuertaDestino(puerta4)
+    puerta6.asignarHabitaciones(h2,h5)
+    puerta6.asignarPuertaDestino(puerta7)
+    puerta7.asignarHabitaciones(h5,h2)
+    puerta7.asignarPuertaDestino(puerta6)
+
+    // Fondo de habitacion inicial
+    game.addVisual(h1)
+    
+    // Inventario
+    game.addVisual(inventarioHUD)
+    game.addVisual(vidaHUD)
 
     // Habitacion inicial
     h1.generarHabitacion()
-    h1.refrescarEnemigos()
+    h1.iniciarEnemigos()
     
     // Alf
     game.addVisualCharacter(alf)

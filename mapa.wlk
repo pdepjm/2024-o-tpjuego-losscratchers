@@ -4,7 +4,6 @@ import enemigo.*
 import HUD.*
 
 class Puerta {
-    var property image = "puerta-ancha.png"
     const property position
     var property estaCerrada
     var property habitacionOrigen = 0
@@ -21,22 +20,29 @@ class Puerta {
     }
 
     method cambiarCelda() {
-        if (habitacionOrigen.enemigosDisponibles().size() == 0 && habitacionOrigen.itemsDisponibles().size() == 0) {
+        if (habitacionOrigen.enemigosDisponibles().size() == 0) {
             // Elimina las puertas, y todos los items y enemigos que quedaron restando en la celda
             habitacionOrigen.puertasDisponibles().forEach { puerta => game.removeVisual(puerta) }
             habitacionOrigen.itemsDisponibles().forEach { item => game.removeVisual(item) }
             
+            // Cambiamos el fondo
+            game.removeVisual(habitacionOrigen) // Fondo viejo
+            game.addVisual(habitacionDestino) // Fondo nuevo
+
+            // Reinicia imagenes para que no sean tapadas por el fondo
+            inventarioHUD.reiniciarImagen()
+            
             // Generamos las puertas, items y enemigos para que aparezcan en la nueva celda
-            habitacionDestino.generarPuertas()
-            habitacionDestino.generarEnemigos()
-            habitacionDestino.generarItems()
+            habitacionDestino.generarHabitacion()
+            // Reiniciar enemigos
+            habitacionDestino.iniciarEnemigos()
+            
+            // Alf
+            alf.reiniciarImagen()
 
             // Mover a Alf
             alf.position(puertaDestino.position())
             alf.habitacionActual(habitacionDestino)
-
-            // Reiniciar enemigos
-            habitacionDestino.refrescarEnemigos()
         }
     }
 }
@@ -46,6 +52,8 @@ class Habitacion {
     const property puertasDisponibles = []
     const property itemsDisponibles = []
     const property enemigosDisponibles = []
+    const property image
+    const property position = game.at(0,0)
     
     method generarPuertas() {
         puertasDisponibles.forEach { puerta => game.addVisual(puerta) }
@@ -60,18 +68,32 @@ class Habitacion {
     }
 
     method generarHabitacion() {
+        self.generarEnemigos()
         self.generarPuertas()
         self.generarItems()
-        self.generarEnemigos()
-        game.ground("celda.png") // Fondo
+    }
+
+    method iniciarEnemigos() {
+        enemigosDisponibles.forEach { enemigoActual => game.whenCollideDo(enemigoActual, {alf => 
+            enemigoActual.atacar(alf)
+        })}
+        enemigosDisponibles.forEach { enemigoActual => game.onTick(1100, "movimiento", {enemigoActual.movete()}) }
+        enemigosDisponibles.forEach { enemigoActual => keyboard.z().onPressDo({ alf.atacar(enemigoActual) }) }
     }
 
     method refrescarEnemigos() {
-        alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.whenCollideDo(enemigoActual, {alf => 
+        enemigosDisponibles.forEach { enemigoActual => game.whenCollideDo(enemigoActual, {alf => 
             enemigoActual.atacar(alf)
         })}
-        alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => game.onTick(1100, "movimiento", {enemigoActual.movete()}) }
-        alf.habitacionActual().enemigosDisponibles().forEach { enemigoActual => keyboard.z().onPressDo({ alf.atacar(enemigoActual) }) }
+        enemigosDisponibles.forEach { enemigoActual => keyboard.z().onPressDo({ alf.atacar(enemigoActual) }) }
+    }
+
+    method removerEntidad(entidad) {
+        if (itemsDisponibles.elem(entidad)) {
+            itemsDisponibles.remove(entidad)
+        } else if (enemigosDisponibles.elem(entidad)) {
+            enemigosDisponibles.remove(entidad)
+        }
     }
 
     // method puertaConectada(listaPuertasOrigen, listaPuertasDestino) = listaPuertasOrigen.puertasDisponibles().find { puertaDestino => (puertaOrigen.position().x() == puertaDestino.position().x()) or (puertaOrigen.position().y() == puertaDestino.position().y())}
@@ -80,10 +102,15 @@ class Habitacion {
 // Puertas
 const puerta1 = new Puerta(estaCerrada = false, position = game.at(15,4))
 const puerta2 = new Puerta(estaCerrada = false, position = game.at(0,4))
+const puerta4 = new Puerta(estaCerrada = false, position = game.at(15,4))
+const puerta5 = new Puerta(estaCerrada = false, position = game.at(0,4))
+const puerta6 = new Puerta(estaCerrada = false, position = game.at(8,1))
+const puerta7 = new Puerta(estaCerrada = false, position = game.at(8,7))
 const puertaFinal = new Puerta(estaCerrada = false, position = game.at(8,1))
 
 // Puerta para el jefe final
 object puerta3 inherits Puerta(estaCerrada = true, position = game.at(8,7)) {
+    var property image = "puerta-ancha.png"
     override method cambiarCelda() {
         if (self.estaCerrada().negate()) {
             super()
@@ -98,18 +125,35 @@ object puerta3 inherits Puerta(estaCerrada = true, position = game.at(8,7)) {
 // Habitaciones
 const h1 = new Habitacion(
     puertasDisponibles = [puerta1],
-    itemsDisponibles = [hamburgesa, espada, llave],
-    enemigosDisponibles = [enemigo1]
+    itemsDisponibles = [hamburgesa, espada],
+    enemigosDisponibles = [enemigo1],
+    image = "Sala_Inicial.png"
 )
 
 const h2 = new Habitacion(
-    puertasDisponibles = [puerta2, puerta3],
-    itemsDisponibles = [cofre],
-    enemigosDisponibles = [enemigo2]
+    puertasDisponibles = [puerta2, puerta3, puerta4, puerta6],
+    itemsDisponibles = [],
+    enemigosDisponibles = [enemigo2, enemigo3],
+    image = "Sala_Centro.png"
 )
 
 const h3 = new Habitacion(
     puertasDisponibles = [puertaFinal],
     itemsDisponibles = [],
-    enemigosDisponibles = [jefe]
+    enemigosDisponibles = [jefe],
+    image = "celda.png"
+)
+
+const h4 = new Habitacion(
+    puertasDisponibles = [puerta5],
+    itemsDisponibles = [cofre],
+    enemigosDisponibles = [],
+    image = "Sala_Cofre.png"
+)
+
+const h5 = new Habitacion(
+    puertasDisponibles = [puerta7],
+    itemsDisponibles = [llave],
+    enemigosDisponibles = [enemigo4],
+    image = "Sala_Llave.png"
 )

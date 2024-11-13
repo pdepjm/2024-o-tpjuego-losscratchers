@@ -4,8 +4,8 @@ import mapa.*
 
 object alf {
   var property vida = 100
-  var property position = game.at(0,1)
-  var property image = "alf_sprite.png"
+  var property position = game.at(1,2)
+  var property image = "alf.png"
   var property danio = 20
   var property habitacionActual = h1 // Empieza en h1
   
@@ -48,6 +48,11 @@ object alf {
   
   method agarrar(item) {
     item.irAlInventario()
+  }
+
+  method reiniciarImagen() {
+    game.removeVisual(self)
+    game.addVisual(self)
   }
 
   /*

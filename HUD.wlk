@@ -24,6 +24,18 @@ object inventarioHUD {
       i += 1
     })
   }
+
+  method reiniciarImagen() {
+    // Inventario
+    game.removeVisual(self)
+    game.removeVisual(vidaHUD)
+    game.addVisual(self)
+    game.addVisual(vidaHUD)
+    
+    // Por cada item
+    inventario.forEach { item => game.removeVisual(item)
+                                game.addVisual(item)}
+  }
 }
 
 class EstadoVidas {
