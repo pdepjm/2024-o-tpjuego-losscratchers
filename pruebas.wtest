@@ -3,16 +3,18 @@ import alf.*
 import items.*
 import HUD.*
 
-describe " Test entrega 1 - danio/vida/items/inventario/enemigos "
+describe "Test entrega 1 - danio/vida/items/inventario/enemigos"
 {
     test "El enemigo empieza con toda su vida" {
         assert.equals(100, enemigo1.vida())
     }
     test "El enemigo recibe danio" {
+        alf.position(game.at(enemigo1.x_inicial() - 1, enemigo1.y_inicial()))
         alf.atacar(enemigo1)
         assert.equals(80, enemigo1.vida())
     }
     test "El enemigo recibe mas danio cuando Alf tiene la espada" {
+        alf.position(game.at(enemigo1.x_inicial() - 1, enemigo1.y_inicial()))
         espada.accion()
         alf.atacar(enemigo1)
         assert.equals(60, enemigo1.vida())
@@ -35,7 +37,7 @@ describe " Test entrega 1 - danio/vida/items/inventario/enemigos "
         alf.agarrar(hamburgesa)
         alf.agarrar(espada)
         alf.utilizar(0)
-        assert.equals(1, inventarioHUD.inventario.size())
+        assert.equals(1, inventarioHUD.inventario().size())
     }
     test "Alf muere cuando se queda sin vida" {        
         enemigo1.atacar(alf)
@@ -49,5 +51,21 @@ describe " Test entrega 1 - danio/vida/items/inventario/enemigos "
         enemigo1.atacar(alf)
         enemigo1.puedoAtacar(true)
         assert.that(alf.vida() <= 0)
+    }
+}
+
+describe "Test entrega final - puertas/habitaciones/"
+{
+    test "Pasar a otra habitacion" {
+        assert.equals(100, enemigo1.vida())
+    }
+    test "Test try-catch del interactuador" {
+        assert.throwsException({  })
+    }
+    test "Test items luego de pasar a otra habitacion y volver" {
+        alf.position(game.at(enemigo1.x_inicial() - 1, enemigo1.y_inicial()))
+        espada.accion()
+        alf.atacar(enemigo1)
+        assert.equals(60, enemigo1.vida())
     }
 }
