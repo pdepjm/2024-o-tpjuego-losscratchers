@@ -1,6 +1,7 @@
 import items.*
 import HUD.*
 import mapa.*
+import finalDelJuego.*
 
 object alf {
   var property vida = 100
@@ -36,8 +37,8 @@ object alf {
   }
 
   method morir() {
-    if(vida <= 0){
-      game.removeVisual(self)
+    if(vida <= 0) {
+      final.derrota()
     }
   }
 

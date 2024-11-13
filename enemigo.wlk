@@ -1,13 +1,15 @@
+import HUD.*
 import wollok.game.*
 import main.*
 import alf.*
+import finalDelJuego.*
 
 class Enemigo {
   var property image
   var property vida
   var property danio
-  const x_inicial
-  const y_inicial
+  const property x_inicial
+  const property y_inicial
   var property position = game.at(x_inicial, y_inicial)
   var property puedoAtacar = true
   const movimiento
@@ -104,15 +106,12 @@ const enemigo1 = new Enemigo(image = "goblin_-_left.png", vida = 100, danio = 20
 const enemigo2 = new Enemigo(image = "goblin_-_left.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 4, movimiento = cuadradoChico)
 const enemigo3 = new Enemigo(image = "goblin_-_right.png", vida = 100, danio = 20, x_inicial = 11, y_inicial = 3, movimiento = lineaVertical)
 const enemigo4 = new Enemigo(image = "goblin_-_left.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 4, movimiento = cuadradoChico)
+
 object jefe inherits Enemigo(image = "placeholder_attack_jefe.png", vida = 500, danio = 50, x_inicial = 8, y_inicial = 3, movimiento = cuadradoGrande) {
   override method morir() {
     if(vida <= 0) {
-      game.removeVisual(self)
-      self.puedoAtacar(false)
-      alf.habitacionActual().enemigosDisponibles().remove(self)
-      alf.habitacionActual().refrescarEnemigos()
       // Termina el juego
-      game.stop()
+      final.victoria()
     }
   }
 }
