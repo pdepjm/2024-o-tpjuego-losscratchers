@@ -88,14 +88,6 @@ class Habitacion {
         enemigosDisponibles.forEach { enemigoActual => keyboard.z().onPressDo({ alf.atacar(enemigoActual) }) }
     }
 
-    method removerEntidad(entidad) {
-        if (itemsDisponibles.elem(entidad)) {
-            itemsDisponibles.remove(entidad)
-        } else if (enemigosDisponibles.elem(entidad)) {
-            enemigosDisponibles.remove(entidad)
-        }
-    }
-
     // method puertaConectada(listaPuertasOrigen, listaPuertasDestino) = listaPuertasOrigen.puertasDisponibles().find { puertaDestino => (puertaOrigen.position().x() == puertaDestino.position().x()) or (puertaOrigen.position().y() == puertaDestino.position().y())}
 }
 
