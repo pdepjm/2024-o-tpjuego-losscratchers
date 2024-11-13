@@ -2,6 +2,9 @@ import enemigo.*
 import alf.*
 import items.*
 import HUD.*
+import mapa.*
+import finalDelJuego.*
+import main.interactuador
 
 describe "Test entrega 1 - danio/vida/items/inventario/enemigos"
 {
@@ -54,18 +57,27 @@ describe "Test entrega 1 - danio/vida/items/inventario/enemigos"
     }
 }
 
-describe "Test entrega final - puertas/habitaciones/"
+describe "Test entrega final - puertas/habitaciones/exceptions/victoria/derrota"
 {
     test "Pasar a otra habitacion" {
-        assert.equals(100, enemigo1.vida())
+        puerta1.asignarHabitaciones(h1,h2)
+        puerta1.asignarPuertaDestino(puerta2)
+        enemigo1.vida(0)
+        enemigo1.morir()
+        puerta1.cambiarCelda()
+        assert.equals(h2, alf.habitacionActual())
     }
     test "Test try-catch del interactuador" {
-        assert.throwsException({  })
+        assert.throwsExceptionWithMessage("Apreta x sobre un item para agarrarlo", { interactuador.obtenerPrimerElemento("x"," sobre un item para agarrarlo") })
     }
-    test "Test items luego de pasar a otra habitacion y volver" {
-        alf.position(game.at(enemigo1.x_inicial() - 1, enemigo1.y_inicial()))
-        espada.accion()
-        alf.atacar(enemigo1)
-        assert.equals(60, enemigo1.vida())
+    test "Se muestra el fondo para la derrota cuando alf se queda sin vida" {
+        alf.vida(0)
+        alf.morir()
+        assert.that(game.hasVisual(fondoDerrota))
+    }
+    test "Se muestra el fondo para la victoria al derrotar al jefe" {
+        jefe.vida(0)
+        jefe.morir()
+        assert.that(game.hasVisual(fondoVictoria))
     }
 }
