@@ -102,7 +102,7 @@ const puertaFinal = new Puerta(estaCerrada = false, position = game.at(8,1))
 
 // Puerta para el jefe final
 object puerta3 inherits Puerta(estaCerrada = true, position = game.at(8,7)) {
-    var property image = "puerta-ancha.png"
+    var property image = "puertaJefeCerrada.png"
     override method cambiarCelda() {
         if (self.estaCerrada().negate()) {
             super()
@@ -111,6 +111,7 @@ object puerta3 inherits Puerta(estaCerrada = true, position = game.at(8,7)) {
 
     method accion() {
         estaCerrada = false
+        self.image("puertaJefeAbierta.png")
     }
 }
 
@@ -129,13 +130,6 @@ const h2 = new Habitacion(
     image = "Sala_Centro.png"
 )
 
-const h3 = new Habitacion(
-    puertasDisponibles = [puertaFinal],
-    itemsDisponibles = [],
-    enemigosDisponibles = [jefe],
-    image = "celda.png"
-)
-
 const h4 = new Habitacion(
     puertasDisponibles = [puerta5],
     itemsDisponibles = [cofre],
@@ -148,4 +142,11 @@ const h5 = new Habitacion(
     itemsDisponibles = [llave],
     enemigosDisponibles = [enemigo4],
     image = "Sala_Llave.png"
+)
+
+const h3 = new Habitacion(
+    puertasDisponibles = [puertaFinal],
+    itemsDisponibles = [],
+    enemigosDisponibles = [jefe],
+    image = "Sala_Jefe.png"
 )

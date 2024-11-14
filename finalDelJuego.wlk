@@ -1,10 +1,10 @@
 object fondoVictoria {
-    var property image = "victoria.jpeg"
+    var property image = "victoria.png"
     var property position = game.at(0,0)
 }
 
 object fondoDerrota {
-    var property image = "derrota.jpeg"
+    var property image = "derrota.png"
     var property position = game.at(0,0)
 }
 

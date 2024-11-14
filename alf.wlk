@@ -33,6 +33,8 @@ object alf {
   method recibirDanio(enemigo) {
     vida -= enemigo.danio()
     vidaHUD.actualizarVida(self)
+    self.image("alf_dmg.gif")
+    game.schedule(650, {self.image("alf.png")})
     self.morir()
   }
 

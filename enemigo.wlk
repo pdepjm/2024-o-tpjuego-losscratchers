@@ -4,8 +4,16 @@ import main.*
 import alf.*
 import finalDelJuego.*
 
+object animador{
+  method mostrarHerida(entidad, imagenOriginal, animacionDanio) {
+    entidad.image(animacionDanio)
+    game.schedule(650, {entidad.image(imagenOriginal)})
+  }
+}
+
 class Enemigo {
   var property image
+  const property imageDmg 
   var property vida
   var property danio
   const property x_inicial
@@ -30,6 +38,7 @@ class Enemigo {
 
   method recibirDanio(alf) {
     vida -= alf.danio()
+    animador.mostrarHerida(self, self.image(), self.imageDmg())
     self.morir()
   }
 
@@ -102,16 +111,21 @@ const lineaHorizontal = new Trayectos(movete_x = 3, movete_y = 1)
 const lineaVertical = new Trayectos(movete_x = 1, movete_y = 3)
 
 // Crear instancias
-const enemigo1 = new Enemigo(image = "goblin_-_left.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 3, movimiento = lineaVertical)
-const enemigo2 = new Enemigo(image = "goblin_-_left.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 4, movimiento = cuadradoChico)
-const enemigo3 = new Enemigo(image = "goblin_-_right.png", vida = 100, danio = 20, x_inicial = 11, y_inicial = 3, movimiento = lineaVertical)
-const enemigo4 = new Enemigo(image = "goblin_-_left.png", vida = 100, danio = 20, x_inicial = 5, y_inicial = 4, movimiento = cuadradoChico)
+const enemigo1 = new Enemigo(image = "goblin_-_left.png", imageDmg = "goblin_-_left_dmg.gif", vida = 100, danio = 20, x_inicial = 5, y_inicial = 3, movimiento = lineaVertical)
+const enemigo2 = new Enemigo(image = "goblin_-_left.png", imageDmg = "goblin_-_left_dmg.gif", vida = 100, danio = 20, x_inicial = 5, y_inicial = 4, movimiento = cuadradoChico)
+const enemigo3 = new Enemigo(image = "goblin_-_right.png", imageDmg = "goblin_-_right_dmg.gif", vida = 100, danio = 20, x_inicial = 11, y_inicial = 3, movimiento = lineaVertical)
+const enemigo4 = new Enemigo(image = "goblin_-_left.png", imageDmg = "goblin_-_left_dmg.gif", vida = 100, danio = 20, x_inicial = 5, y_inicial = 4, movimiento = cuadradoChico)
 
-object jefe inherits Enemigo(image = "placeholder_attack_jefe.png", vida = 500, danio = 50, x_inicial = 8, y_inicial = 3, movimiento = cuadradoGrande) {
+object jefe inherits Enemigo(image = "Jefe.png", imageDmg = "Jefe_dmg.gif",vida = 500, danio = 50, x_inicial = 8, y_inicial = 3, movimiento = cuadradoGrande) {
   override method morir() {
     if(vida <= 0) {
       // Termina el juego
       final.victoria()
     }
+  }
+  override method recibirDanio(alf) {
+    vida -= alf.danio()
+    animador.mostrarHerida(self, self.image(), self.imageDmg())
+    self.morir()
   }
 }
