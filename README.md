@@ -19,7 +19,8 @@ UTN - Facultad Regional Buenos Aires - Materia Paradigmas de Programación
 ![llave](assets/llave.png)
 ![llaveJefe](assets/llaveJefe.png)
 ![goblin](assets/goblin_-_left.png)
-![puerta](assets/puerta-ancha.png)
+![jefe](assets/Jefe.png)
+![puerta](assets/puertaJefeCerrada.png)
 
 ## Reglas de Juego / Instrucciones
 
